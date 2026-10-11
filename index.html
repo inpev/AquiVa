@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="AquiVa, simulador web móvil de pedidos para prácticas educativas de UX/UI y desarrollo frontend."
+  />
+  <title>AquiVa — Simulador móvil</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+<main class="phone" aria-label="Simulador móvil AquiVa">
+    <section class="screen">
+      <div class="statusbar">
+        <span>9:41</span>
+        <div class="status-icons"><span>▮▮▮</span><span>⌁</span><span>▰</span></div>
+      </div>
+
+      <header class="appbar">
+        <div class="brand">Aqui<span>Va</span></div>
+        <div class="online"><span class="dot"></span>Online</div>
+      </header>
+
+      <div class="scroll" id="scrollArea">
+        <div class="location">
+          <div class="location-icon">📍</div>
+          <div class="location-copy">
+            <div class="label">Enviar a</div>
+            <div class="address">Av. Siempre Viva 123, Panamá</div>
+          </div>
+          <div class="chev">›</div>
+        </div>
+
+        <label class="search" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="M20 20l-3.5-3.5"></path>
+          </svg>
+          <input id="searchInput" type="search" placeholder="¿Qué quieres hoy?" />
+        </label>
+
+        <div class="section-head">
+          <h2>Categorías</h2>
+          <button class="section-link" id="allCategories">Ver todas</button>
+        </div>
+
+        <div class="categories" id="categories">
+          <button class="category" data-category="comida"><span class="emoji">🍔</span><span>Comida</span></button>
+          <button class="category" data-category="supermercado"><span class="emoji">🛒</span><span>Supermercado</span></button>
+          <button class="category" data-category="farmacia"><span class="emoji">💊</span><span>Farmacia</span></button>
+          <button class="category" data-category="bebidas"><span class="emoji">🥤</span><span>Bebidas</span></button>
+          <button class="category" data-category="postres"><span class="emoji">🍰</span><span>Postres</span></button>
+          <button class="category" data-category="más"><span class="emoji">◼️</span><span>Más</span></button>
+        </div>
+
+        <section class="promo">
+          <h3>Envío gratis</h3>
+          <p>En pedidos desde B/. 25.00</p>
+          <button id="promoButton">Pedir ahora</button>
+          <div class="scooter" aria-hidden="true">🛵</div>
+        </section>
+
+        <div class="section-head">
+          <h2>Populares cerca de ti</h2>
+          <button class="section-link" id="seeMore">Ver más</button>
+        </div>
+
+        <div class="restaurant-grid" id="restaurantGrid">
+          <article class="restaurant" data-name="Burger House" data-tags="comida hamburguesa burger">
+            <div class="food">
+              🍔
+              <button class="heart" aria-label="Agregar Burger House a favoritos">♡</button>
+            </div>
+            <div class="restaurant-copy">
+              <div class="restaurant-title">Burger House</div>
+              <div class="restaurant-meta">
+                <span class="rating">★ 4.8</span>
+                <span>320</span>
+                <span>25–35 min</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="restaurant" data-name="Pizzería Napoli" data-tags="comida pizza">
+            <div class="food">
+              🍕
+              <button class="heart" aria-label="Agregar Pizzería Napoli a favoritos">♡</button>
+            </div>
+            <div class="restaurant-copy">
+              <div class="restaurant-title">Pizzería Napoli</div>
+              <div class="restaurant-meta">
+                <span class="rating">★ 4.7</span>
+                <span>210</span>
+                <span>30–40 min</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <nav class="bottom-nav" aria-label="Navegación principal">
+        <button class="nav-btn active" data-view="Inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 11.5L12 4l9 7.5"></path><path d="M5.5 10.5V20h13v-9.5"></path></svg>
+          <span>Inicio</span>
+        </button>
+        <button class="nav-btn" data-view="Categorías">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>
+          <span>Categorías</span>
+        </button>
+        <button class="nav-btn" data-view="Pedidos">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 4h12v16H6z"></path><path d="M9 8h6M9 12h6M9 16h4"></path></svg>
+          <span>Pedidos</span>
+        </button>
+        <button class="nav-btn" data-view="Cuenta">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.9-4.2 3.2-6.3 7-6.3s6.1 2.1 7 6.3"></path></svg>
+          <span>Cuenta</span>
+        </button>
+      </nav>
+
+      <div class="toast" id="toast"></div>
+    </section>
+  </main>
+
+  <script>
+    /*
+      Interacciones ligeras para la previsualización:
+      - búsqueda local
+      - selección de categorías
+      - favoritos
+      - navegación inferior
+      - mensajes contextuales
+    */
+
+    const toast = document.getElementById("toast");
+    const searchInput = document.getElementById("searchInput");
+    const restaurants = [...document.querySelectorAll(".restaurant")];
+    const categories = [...document.querySelectorAll(".category")];
+    const navButtons = [...document.querySelectorAll(".nav-btn")];
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 1700);
+    }
+
+    searchInput.addEventListener("input", (event) => {
+      const term = event.target.value.trim().toLowerCase();
+
+      restaurants.forEach((restaurant) => {
+        const searchable = `${restaurant.dataset.name} ${restaurant.dataset.tags}`.toLowerCase();
+        restaurant.style.display = searchable.includes(term) ? "" : "none";
+      });
+    });
+
+    categories.forEach((button) => {
+      button.addEventListener("click", () => {
+        categories.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        const category = button.dataset.category;
+        showToast(`Categoría: ${button.textContent.trim()}`);
+
+        // La demo solo filtra los comercios que tienen relación con "comida".
+        restaurants.forEach((restaurant) => {
+          restaurant.style.display =
+            category === "comida" || category === "más" ? "" : "none";
+        });
+      });
+    });
+
+    document.querySelectorAll(".heart").forEach((heart) => {
+      heart.addEventListener("click", (event) => {
+        event.stopPropagation();
+        heart.classList.toggle("liked");
+        heart.textContent = heart.classList.contains("liked") ? "♥" : "♡";
+        showToast(heart.classList.contains("liked") ? "Agregado a favoritos" : "Eliminado de favoritos");
+      });
+    });
+
+    restaurants.forEach((restaurant) => {
+      restaurant.addEventListener("click", () => {
+        showToast(`Abrir ${restaurant.dataset.name}`);
+      });
+    });
+
+    navButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        navButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        showToast(button.dataset.view);
+      });
+    });
+
+    document.getElementById("promoButton").addEventListener("click", () => {
+      showToast("Promoción activada");
+    });
+
+    document.getElementById("allCategories").addEventListener("click", () => {
+      showToast("Vista de todas las categorías");
+    });
+
+    document.getElementById("seeMore").addEventListener("click", () => {
+      showToast("Más comercios disponibles");
+    });
+  </script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
