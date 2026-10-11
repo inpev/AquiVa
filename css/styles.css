@@ -1,14 +1,12 @@
 /*
  * AquiVa — estilos principales del simulador móvil.
  *
- * Responsabilidades:
- * - Definir el sistema visual de AquiVa.
- * - Mantener proporciones consistentes del simulador.
- * - Adaptar correctamente la interfaz a escritorio y móvil.
- * - Mantener componentes desacoplados y fáciles de modificar.
- *
- * La tarjeta promocional utiliza CSS Grid para impedir que
- * la ilustración de la moto invada el contenido o el botón.
+ * Propósito:
+ * - Mantener una interfaz visual limpia y consistente.
+ * - Representar correctamente un smartphone en escritorio.
+ * - Adaptar AquiVa a pantallas móviles reales.
+ * - Mantener una estructura responsive estable en GitHub Pages.
+ * - Evitar superposiciones entre contenido e ilustraciones.
  */
 
 /* =========================================================
@@ -17,13 +15,11 @@
 
 :root {
   --bg: #f4f6fb;
-
   --surface: #ffffff;
   --surface-soft: #f8f9fd;
 
   --text: #101828;
   --muted: #667085;
-
   --border: #e7eaf0;
 
   --purple: #6f24e8;
@@ -31,7 +27,6 @@
   --purple-soft: #f1e8ff;
 
   --orange: #ff8a00;
-
   --green: #1da66a;
 
   --phone-width: 390px;
@@ -40,17 +35,17 @@
   --phone-radius: 48px;
   --screen-radius: 40px;
 
-  --shadow:
-    0 24px 65px rgba(16, 24, 40, 0.18);
+  --shadow: 0 24px 65px rgba(16, 24, 40, 0.18);
 
   /*
-   * Escala base del simulador en escritorio.
+   * Escala general utilizada en escritorio.
+   * Los breakpoints modifican únicamente esta variable.
    */
   --phone-zoom: 0.88;
 }
 
 /* =========================================================
-   RESET
+   RESET GLOBAL
    ========================================================= */
 
 *,
@@ -113,18 +108,14 @@ body {
 
   background: #0c1421;
 
-  border:
-    1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--phone-radius);
 
-  border-radius:
-    var(--phone-radius);
-
-  box-shadow:
-    var(--shadow);
+  box-shadow: var(--shadow);
 
   /*
-   * Escala todo el dispositivo manteniendo
-   * intacta su proporción interna.
+   * Escala el dispositivo completo manteniendo intactas
+   * sus proporciones internas.
    */
   zoom: var(--phone-zoom);
 }
@@ -137,20 +128,16 @@ body {
   height: 28px;
 
   position: absolute;
-
   top: 17px;
   left: 50%;
 
   z-index: 20;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
-  background:
-    #0a0f18;
+  background: #0a0f18;
 
-  border-radius:
-    20px;
+  border-radius: 20px;
 }
 
 /* =========================================================
@@ -168,25 +155,24 @@ body {
 
   overflow: hidden;
 
-  background:
-    var(--surface);
+  background: var(--surface);
 
-  border-radius:
-    var(--screen-radius);
+  border-radius: var(--screen-radius);
 }
 
 /* =========================================================
-   STATUS BAR
+   BARRA DE ESTADO
    ========================================================= */
 
 .statusbar {
   height: 46px;
 
-  padding:
-    13px 20px 0;
+  padding: 13px 20px 0;
+
+  position: relative;
+  z-index: 10;
 
   display: flex;
-
   align-items: flex-start;
   justify-content: space-between;
 
@@ -194,15 +180,10 @@ body {
 
   font-size: 12px;
   font-weight: 700;
-
-  position: relative;
-
-  z-index: 10;
 }
 
 .status-icons {
   display: flex;
-
   align-items: center;
 
   gap: 6px;
@@ -215,28 +196,22 @@ body {
    ========================================================= */
 
 .appbar {
-  padding:
-    6px 18px 12px;
+  padding: 6px 18px 12px;
+
+  position: relative;
+  z-index: 4;
 
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
   flex-shrink: 0;
 
-  position: relative;
+  background: rgba(255, 255, 255, 0.96);
 
-  z-index: 4;
+  border-bottom: 1px solid #f0f2f6;
 
-  background:
-    rgba(255, 255, 255, 0.96);
-
-  border-bottom:
-    1px solid #f0f2f6;
-
-  backdrop-filter:
-    blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 /* =========================================================
@@ -244,8 +219,7 @@ body {
    ========================================================= */
 
 .brand {
-  color:
-    var(--purple);
+  color: var(--purple);
 
   font-size: 30px;
   font-weight: 900;
@@ -256,8 +230,7 @@ body {
 }
 
 .brand span {
-  color:
-    var(--orange);
+  color: var(--orange);
 }
 
 /* =========================================================
@@ -265,26 +238,19 @@ body {
    ========================================================= */
 
 .online {
-  padding:
-    8px 12px;
+  padding: 8px 12px;
 
   display: flex;
-
   align-items: center;
 
   gap: 7px;
 
-  color:
-    #107244;
+  color: #107244;
 
-  background:
-    #e8fbf1;
+  background: #e8fbf1;
 
-  border:
-    1px solid #c9f0dc;
-
-  border-radius:
-    999px;
+  border: 1px solid #c9f0dc;
+  border-radius: 999px;
 
   font-size: 12px;
   font-weight: 800;
@@ -296,11 +262,9 @@ body {
 
   flex: 0 0 auto;
 
-  background:
-    #17b26a;
+  background: #17b26a;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
   box-shadow:
     0 0 0 3px rgba(23, 178, 106, 0.12);
@@ -311,21 +275,18 @@ body {
    ========================================================= */
 
 .scroll {
-  flex: 1;
-
   min-height: 0;
 
-  padding:
-    14px 16px 110px;
+  flex: 1;
+
+  padding: 14px 16px 110px;
 
   overflow-y: auto;
   overflow-x: hidden;
 
-  overscroll-behavior:
-    contain;
+  overscroll-behavior: contain;
 
-  scrollbar-width:
-    none;
+  scrollbar-width: none;
 }
 
 .scroll::-webkit-scrollbar {
@@ -339,41 +300,28 @@ body {
 .location {
   width: 100%;
 
-  margin:
-    0 0 12px;
-
-  padding:
-    13px 14px;
+  margin: 0 0 12px;
+  padding: 13px 14px;
 
   display: flex;
-
   align-items: center;
 
   gap: 12px;
 
-  color:
-    inherit;
+  color: inherit;
+  text-align: left;
 
-  text-align:
-    left;
+  background: #ffffff;
 
-  background:
-    #ffffff;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    20px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
 
   box-shadow:
     0 3px 12px rgba(16, 24, 40, 0.04);
 
-  cursor:
-    pointer;
+  cursor: pointer;
 
-  font:
-    inherit;
+  font: inherit;
 }
 
 .location-icon {
@@ -381,20 +329,15 @@ body {
   height: 42px;
 
   display: grid;
-
   place-items: center;
 
-  flex:
-    0 0 auto;
+  flex: 0 0 auto;
 
-  background:
-    #fff1df;
+  background: #fff1df;
 
-  border-radius:
-    15px;
+  border-radius: 15px;
 
-  font-size:
-    20px;
+  font-size: 20px;
 }
 
 .location-copy {
@@ -403,51 +346,33 @@ body {
   flex: 1;
 
   display: flex;
-
-  flex-direction:
-    column;
+  flex-direction: column;
 }
 
 .label {
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    11px;
-
-  font-weight:
-    700;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .address {
-  margin-top:
-    1px;
+  margin-top: 1px;
 
-  overflow:
-    hidden;
+  overflow: hidden;
 
-  font-size:
-    13px;
+  font-size: 13px;
+  font-weight: 800;
 
-  font-weight:
-    800;
-
-  white-space:
-    nowrap;
-
-  text-overflow:
-    ellipsis;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .chev {
-  color:
-    var(--purple);
+  color: var(--purple);
 
-  font-size:
-    20px;
-
-  font-weight:
-    800;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 /* =========================================================
@@ -455,83 +380,55 @@ body {
    ========================================================= */
 
 .search {
-  margin-bottom:
-    18px;
-
-  padding:
-    12px 14px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
 
   display: flex;
-
   align-items: center;
 
-  gap:
-    10px;
+  gap: 10px;
 
-  background:
-    #fbfbfd;
+  background: #fbfbfd;
 
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
 }
 
 .search:focus-within {
-  border-color:
-    rgba(111, 36, 232, 0.45);
+  border-color: rgba(111, 36, 232, 0.45);
 
   box-shadow:
     0 0 0 3px rgba(111, 36, 232, 0.08);
 }
 
 .search svg {
-  width:
-    20px;
+  width: 20px;
+  height: 20px;
 
-  height:
-    20px;
+  flex: 0 0 auto;
 
-  flex:
-    0 0 auto;
-
-  stroke:
-    var(--purple);
+  stroke: var(--purple);
 }
 
 .search input {
-  width:
-    100%;
+  width: 100%;
+  min-width: 0;
 
-  min-width:
-    0;
+  padding: 0;
 
-  padding:
-    0;
+  color: var(--text);
 
-  color:
-    var(--text);
+  background: transparent;
 
-  background:
-    transparent;
+  border: 0;
+  outline: 0;
 
-  border:
-    0;
-
-  outline:
-    0;
-
-  font:
-    inherit;
-
-  font-size:
-    14px;
+  font: inherit;
+  font-size: 14px;
 }
 
 .search input::placeholder {
-  color:
-    #7a7f8c;
+  color: #7a7f8c;
 }
 
 /* =========================================================
@@ -539,60 +436,39 @@ body {
    ========================================================= */
 
 .section-head {
-  margin:
-    2px 0 10px;
+  margin: 2px 0 10px;
 
-  display:
-    flex;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    12px;
+  gap: 12px;
 }
 
 .section-head h2 {
-  margin:
-    0;
+  margin: 0;
 
-  font-size:
-    18px;
+  font-size: 18px;
 
-  letter-spacing:
-    -0.35px;
+  letter-spacing: -0.35px;
 }
 
 .section-link {
-  padding:
-    4px;
+  padding: 4px;
 
-  flex:
-    0 0 auto;
+  flex: 0 0 auto;
 
-  color:
-    var(--purple);
+  color: var(--purple);
 
-  background:
-    transparent;
+  background: transparent;
 
-  border:
-    0;
+  border: 0;
 
-  font:
-    inherit;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
 
-  font-size:
-    13px;
-
-  font-weight:
-    800;
-
-  cursor:
-    pointer;
+  cursor: pointer;
 }
 
 /* =========================================================
@@ -600,43 +476,29 @@ body {
    ========================================================= */
 
 .categories {
-  margin-bottom:
-    16px;
+  margin-bottom: 16px;
 
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  gap:
-    9px;
+  gap: 9px;
 }
 
 .category {
-  min-width:
-    0;
+  min-width: 0;
+  min-height: 82px;
 
-  min-height:
-    82px;
+  padding: 13px 6px 11px;
 
-  padding:
-    13px 6px 11px;
+  display: flex;
+  flex-direction: column;
 
-  display:
-    flex;
+  align-items: center;
+  justify-content: center;
 
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  color:
-    inherit;
+  color: inherit;
 
   background:
     linear-gradient(
@@ -645,17 +507,12 @@ body {
       #fafafd
     );
 
-  border:
-    1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 18px;
 
-  border-radius:
-    18px;
+  font: inherit;
 
-  font:
-    inherit;
-
-  cursor:
-    pointer;
+  cursor: pointer;
 
   transition:
     transform 0.2s ease,
@@ -666,8 +523,7 @@ body {
 
 .category:hover,
 .category.active {
-  transform:
-    translateY(-2px);
+  transform: translateY(-2px);
 
   background:
     linear-gradient(
@@ -676,91 +532,89 @@ body {
       #f2eaff
     );
 
-  border-color:
-    #d9c5ff;
+  border-color: #d9c5ff;
 
   box-shadow:
     0 7px 18px rgba(111, 36, 232, 0.08);
 }
 
 .emoji {
-  margin-bottom:
-    7px;
+  margin-bottom: 7px;
 
-  font-size:
-    26px;
+  font-size: 26px;
 
-  line-height:
-    1;
+  line-height: 1;
 }
 
 .category span:last-child {
-  font-size:
-    11px;
-
-  font-weight:
-    800;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 /* =========================================================
-   PROMOCIÓN
+   TARJETA PROMOCIONAL
    ========================================================= */
 
 /*
- * IMPORTANTE:
+ * ESTRUCTURA REAL DEL HTML:
  *
- * El banner utiliza dos columnas reales:
+ * .promo
+ * ├── h3
+ * ├── p
+ * ├── button
+ * └── .scooter
  *
- * 1. Contenido
- * 2. Ilustración
- *
- * No usamos position:absolute para la moto.
- *
- * Esto evita:
- * - superposición con el botón;
- * - texto comprimido;
- * - comportamientos distintos al escalar;
- * - problemas entre localhost y GitHub Pages.
+ * Por eso cada elemento obtiene explícitamente
+ * una posición dentro de CSS Grid.
  */
 
 .promo {
-  width:
-    100%;
+  width: 100%;
 
-  min-height:
-    126px;
+  min-height: 132px;
 
-  margin:
-    5px 0 18px;
+  margin: 5px 0 18px;
+  padding: 18px;
 
-  padding:
-    18px;
+  position: relative;
 
-  display:
-    grid;
+  display: grid;
 
+  /*
+   * Columna izquierda: contenido.
+   * Columna derecha: ilustración.
+   */
   grid-template-columns:
-    minmax(0, 1fr) 76px;
+    minmax(0, 1fr) 86px;
 
-  align-items:
-    center;
+  /*
+   * Tres filas:
+   * título,
+   * descripción,
+   * botón.
+   */
+  grid-template-rows:
+    auto
+    auto
+    auto;
 
-  column-gap:
-    12px;
+  grid-template-areas:
+    "title scooter"
+    "description scooter"
+    "button scooter";
 
-  position:
-    relative;
+  column-gap: 14px;
 
-  overflow:
-    hidden;
+  align-items: center;
 
-  color:
-    #ffffff;
+  overflow: hidden;
+
+  color: #ffffff;
 
   background:
     radial-gradient(
-      circle at 90% 20%,
-      rgba(255, 255, 255, 0.18),
+      circle at 90% 18%,
+      rgba(255, 255, 255, 0.2),
       transparent 28%
     ),
     linear-gradient(
@@ -770,164 +624,141 @@ body {
       #b136d2 100%
     );
 
-  border-radius:
-    22px;
+  border-radius: 22px;
 
   box-shadow:
     0 14px 30px rgba(111, 36, 232, 0.17);
 }
 
-/*
- * Columna de contenido.
- */
-.promo > div:first-child {
-  min-width:
-    0;
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  align-items:
-    flex-start;
-
-  position:
-    relative;
-
-  z-index:
-    2;
-}
+/* =========================================================
+   TÍTULO PROMOCIONAL
+   ========================================================= */
 
 .promo h3 {
-  margin:
-    0 0 4px;
+  grid-area: title;
 
-  font-size:
-    23px;
+  align-self: end;
 
-  font-weight:
-    900;
+  margin: 0 0 4px;
 
-  line-height:
-    1.05;
+  color: #ffffff;
 
-  letter-spacing:
-    -0.6px;
+  font-size: 23px;
+  font-weight: 900;
 
-  white-space:
-    nowrap;
+  line-height: 1.05;
+
+  letter-spacing: -0.6px;
+
+  white-space: nowrap;
 }
+
+/* =========================================================
+   DESCRIPCIÓN PROMOCIONAL
+   ========================================================= */
 
 .promo p {
-  margin:
-    0;
+  grid-area: description;
 
-  max-width:
-    175px;
+  align-self: start;
 
-  font-size:
-    12px;
+  margin: 0 0 10px;
 
-  line-height:
-    1.35;
+  color: rgba(255, 255, 255, 0.95);
 
-  opacity:
-    0.95;
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 1.35;
 }
 
+/* =========================================================
+   BOTÓN PROMOCIONAL
+   ========================================================= */
+
 .promo button {
-  margin-top:
-    10px;
+  grid-area: button;
 
-  padding:
-    9px 14px;
+  justify-self: start;
 
-  display:
-    inline-flex;
+  min-width: 108px;
 
-  align-items:
-    center;
+  padding: 9px 14px;
 
-  justify-content:
-    center;
+  display: inline-flex;
 
-  color:
-    var(--purple);
+  align-items: center;
+  justify-content: center;
 
-  background:
-    #ffffff;
+  color: var(--purple);
 
-  border:
-    0;
+  background: #ffffff;
 
-  border-radius:
-    12px;
+  border: 0;
+  border-radius: 12px;
 
-  font:
-    inherit;
+  font: inherit;
 
-  font-size:
-    12px;
+  font-size: 12px;
+  font-weight: 900;
 
-  font-weight:
-    900;
-
-  white-space:
-    nowrap;
+  white-space: nowrap;
 
   box-shadow:
     0 5px 12px rgba(0, 0, 0, 0.08);
 
-  cursor:
-    pointer;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+.promo button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   MOTO
+   ========================================================= */
+
 /*
- * La moto ocupa su propia columna.
+ * La moto tiene una columna exclusiva.
  *
- * No invade el contenido porque ya no utiliza
- * posicionamiento absoluto.
+ * Ya no puede colocarse encima del botón,
+ * del título ni de la descripción.
  */
+
 .scooter {
-  width:
-    76px;
+  grid-area: scooter;
 
-  height:
-    86px;
+  width: 86px;
+  height: 100%;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    flex-end;
+  align-items: flex-end;
+  justify-content: center;
 
-  justify-content:
-    center;
+  align-self: stretch;
 
-  position:
-    relative;
+  padding-bottom: 4px;
 
-  z-index:
-    1;
+  font-size: 61px;
 
-  font-size:
-    58px;
+  line-height: 1;
 
-  line-height:
-    1;
-
-  transform:
-    rotate(-2deg);
+  transform: rotate(-2deg);
 
   filter:
     drop-shadow(
-      0 8px 8px rgba(0, 0, 0, 0.14)
+      0 8px 8px rgba(0, 0, 0, 0.15)
     );
 
-  pointer-events:
-    none;
+  pointer-events: none;
 }
 
 /* =========================================================
@@ -935,37 +766,28 @@ body {
    ========================================================= */
 
 .restaurant-grid {
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
 
-  gap:
-    10px;
+  gap: 10px;
 }
 
 .restaurant {
-  min-width:
-    0;
+  min-width: 0;
 
-  overflow:
-    hidden;
+  overflow: hidden;
 
-  background:
-    #ffffff;
+  background: #ffffff;
 
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
 
   box-shadow:
     0 3px 10px rgba(16, 24, 40, 0.03);
 
-  cursor:
-    pointer;
+  cursor: pointer;
 
   transition:
     transform 0.2s ease,
@@ -973,8 +795,7 @@ body {
 }
 
 .restaurant:hover {
-  transform:
-    translateY(-3px);
+  transform: translateY(-3px);
 
   box-shadow:
     0 12px 25px rgba(16, 24, 40, 0.08);
@@ -984,8 +805,7 @@ body {
   outline:
     3px solid rgba(111, 36, 232, 0.25);
 
-  outline-offset:
-    2px;
+  outline-offset: 2px;
 }
 
 /* =========================================================
@@ -993,17 +813,12 @@ body {
    ========================================================= */
 
 .food {
-  height:
-    105px;
+  height: 105px;
 
-  position:
-    relative;
+  position: relative;
 
-  display:
-    grid;
-
-  place-items:
-    center;
+  display: grid;
+  place-items: center;
 
   background:
     linear-gradient(
@@ -1012,8 +827,7 @@ body {
       #ffe7c4
     );
 
-  font-size:
-    64px;
+  font-size: 64px;
 }
 
 .restaurant:nth-child(2) .food {
@@ -1030,109 +844,72 @@ body {
    ========================================================= */
 
 .heart {
-  width:
-    30px;
+  width: 30px;
+  height: 30px;
 
-  height:
-    30px;
+  position: absolute;
 
-  position:
-    absolute;
+  top: 9px;
+  right: 9px;
 
-  top:
-    9px;
+  display: grid;
+  place-items: center;
 
-  right:
-    9px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  color:
-    #475467;
+  color: #475467;
 
   background:
     rgba(255, 255, 255, 0.94);
 
-  border:
-    0;
+  border: 0;
+  border-radius: 50%;
 
-  border-radius:
-    50%;
+  font: inherit;
+  font-size: 16px;
 
-  font:
-    inherit;
-
-  font-size:
-    16px;
-
-  cursor:
-    pointer;
+  cursor: pointer;
 }
 
 .heart.liked {
-  color:
-    #e11d48;
+  color: #e11d48;
 }
 
 /* =========================================================
-   DATOS DEL COMERCIO
+   INFORMACIÓN DEL COMERCIO
    ========================================================= */
 
 .restaurant-copy {
-  padding:
-    10px;
+  padding: 10px;
 }
 
 .restaurant-title {
-  margin-bottom:
-    4px;
+  margin-bottom: 4px;
 
-  overflow:
-    hidden;
+  overflow: hidden;
 
-  font-size:
-    13px;
+  font-size: 13px;
+  font-weight: 900;
 
-  font-weight:
-    900;
-
-  white-space:
-    nowrap;
-
-  text-overflow:
-    ellipsis;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .restaurant-meta {
-  display:
-    flex;
+  display: flex;
+  align-items: center;
 
-  align-items:
-    center;
+  gap: 8px;
 
-  gap:
-    8px;
+  flex-wrap: wrap;
 
-  flex-wrap:
-    wrap;
+  color: var(--muted);
 
-  color:
-    var(--muted);
-
-  font-size:
-    10px;
+  font-size: 10px;
 }
 
 .rating {
-  color:
-    #a15d00;
+  color: #a15d00;
 
-  font-weight:
-    800;
+  font-weight: 800;
 }
 
 /* =========================================================
@@ -1140,29 +917,19 @@ body {
    ========================================================= */
 
 .empty-results {
-  margin:
-    18px 0 0;
+  margin: 18px 0 0;
+  padding: 14px;
 
-  padding:
-    14px;
+  color: var(--muted);
 
-  color:
-    var(--muted);
+  background: var(--surface-soft);
 
-  background:
-    var(--surface-soft);
+  border: 1px dashed var(--border);
+  border-radius: 14px;
 
-  border:
-    1px dashed var(--border);
+  font-size: 12px;
 
-  border-radius:
-    14px;
-
-  font-size:
-    12px;
-
-  text-align:
-    center;
+  text-align: center;
 }
 
 /* =========================================================
@@ -1170,29 +937,19 @@ body {
    ========================================================= */
 
 .bottom-nav {
-  height:
-    84px;
+  height: 84px;
 
-  position:
-    absolute;
+  position: absolute;
 
-  left:
-    0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-  right:
-    0;
+  z-index: 10;
 
-  bottom:
-    0;
+  padding: 7px 8px 13px;
 
-  z-index:
-    10;
-
-  padding:
-    7px 8px 13px;
-
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
     repeat(4, minmax(0, 1fr));
@@ -1208,47 +965,30 @@ body {
 }
 
 .nav-btn {
-  min-width:
-    0;
+  min-width: 0;
 
-  display:
-    flex;
+  display: flex;
 
-  flex-direction:
-    column;
+  flex-direction: column;
 
-  align-items:
-    center;
+  align-items: center;
+  justify-content: center;
 
-  justify-content:
-    center;
+  gap: 4px;
 
-  gap:
-    4px;
+  color: #667085;
 
-  color:
-    #667085;
+  background: transparent;
 
-  background:
-    transparent;
+  border: 0;
+  border-radius: 16px;
 
-  border:
-    0;
+  font: inherit;
 
-  border-radius:
-    16px;
+  font-size: 10px;
+  font-weight: 800;
 
-  font:
-    inherit;
-
-  font-size:
-    10px;
-
-  font-weight:
-    800;
-
-  cursor:
-    pointer;
+  cursor: pointer;
 
   transition:
     color 0.2s ease,
@@ -1256,19 +996,14 @@ body {
 }
 
 .nav-btn svg {
-  width:
-    22px;
+  width: 22px;
+  height: 22px;
 
-  height:
-    22px;
-
-  stroke:
-    currentColor;
+  stroke: currentColor;
 }
 
 .nav-btn.active {
-  color:
-    var(--purple);
+  color: var(--purple);
 
   background:
     linear-gradient(
@@ -1283,50 +1018,32 @@ body {
    ========================================================= */
 
 .toast {
-  width:
-    max-content;
+  width: max-content;
+  max-width: 80%;
 
-  max-width:
-    80%;
+  position: absolute;
 
-  position:
-    absolute;
+  left: 50%;
+  bottom: 96px;
 
-  left:
-    50%;
+  z-index: 30;
 
-  bottom:
-    96px;
+  padding: 11px 14px;
 
-  z-index:
-    30;
+  color: #ffffff;
 
-  padding:
-    11px 14px;
+  background: #111827;
 
-  color:
-    #ffffff;
+  border-radius: 12px;
 
-  background:
-    #111827;
+  font-size: 12px;
+  font-weight: 700;
 
-  border-radius:
-    12px;
+  text-align: center;
 
-  font-size:
-    12px;
+  opacity: 0;
 
-  font-weight:
-    700;
-
-  text-align:
-    center;
-
-  opacity:
-    0;
-
-  pointer-events:
-    none;
+  pointer-events: none;
 
   transform:
     translate(-50%, 20px);
@@ -1337,8 +1054,7 @@ body {
 }
 
 .toast.show {
-  opacity:
-    1;
+  opacity: 1;
 
   transform:
     translate(-50%, 0);
@@ -1353,117 +1069,109 @@ input:focus-visible {
   outline:
     3px solid rgba(111, 36, 232, 0.22);
 
-  outline-offset:
-    2px;
+  outline-offset: 2px;
 }
 
 /* =========================================================
-   RESPONSIVE — ESCRITORIO
+   RESPONSIVE — ESCRITORIO GRANDE
    ========================================================= */
-
-/*
- * Solo modificamos una variable.
- *
- * No volvemos a declarar las dimensiones del teléfono.
- */
 
 @media (min-width: 521px) and (min-height: 960px) {
   :root {
-    --phone-zoom:
-      1;
-  }
-}
-
-@media (min-width: 521px) and (max-height: 900px) {
-  :root {
-    --phone-zoom:
-      0.9;
-  }
-}
-
-@media (min-width: 521px) and (max-height: 820px) {
-  :root {
-    --phone-zoom:
-      0.82;
-  }
-}
-
-@media (min-width: 521px) and (max-height: 740px) {
-  :root {
-    --phone-zoom:
-      0.74;
-  }
-}
-
-@media (min-width: 521px) and (max-height: 660px) {
-  :root {
-    --phone-zoom:
-      0.66;
+    --phone-zoom: 1;
   }
 }
 
 /* =========================================================
-   RESPONSIVE — MÓVIL REAL
+   RESPONSIVE — ESCRITORIO MEDIO
    ========================================================= */
 
-@media (max-width: 520px) {
-
+@media (min-width: 521px) and (max-height: 900px) {
   :root {
-    --phone-zoom:
-      1;
+    --phone-zoom: 0.9;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — LAPTOP
+   ========================================================= */
+
+@media (min-width: 521px) and (max-height: 820px) {
+  :root {
+    --phone-zoom: 0.82;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — PANTALLA BAJA
+   ========================================================= */
+
+@media (min-width: 521px) and (max-height: 740px) {
+  :root {
+    --phone-zoom: 0.74;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — PANTALLA MUY BAJA
+   ========================================================= */
+
+@media (min-width: 521px) and (max-height: 660px) {
+  :root {
+    --phone-zoom: 0.66;
+  }
+}
+
+/* =========================================================
+   MÓVIL REAL
+   ========================================================= */
+
+/*
+ * Cuando AquiVa se abre desde un smartphone,
+ * desaparece el marco simulado.
+ *
+ * La aplicación utiliza directamente la pantalla real.
+ */
+
+@media (max-width: 520px) {
+  :root {
+    --phone-zoom: 1;
   }
 
   body {
-    min-height:
-      100dvh;
+    min-height: 100dvh;
 
-    padding:
-      0;
+    padding: 0;
 
-    display:
-      block;
+    display: block;
 
-    background:
-      #ffffff;
+    background: #ffffff;
 
-    overflow:
-      hidden;
+    overflow: hidden;
   }
 
   .phone {
-    width:
-      100%;
+    width: 100%;
+    height: 100dvh;
 
-    height:
-      100dvh;
+    padding: 0;
 
-    padding:
-      0;
+    background: #ffffff;
 
-    background:
-      #ffffff;
+    border: 0;
+    border-radius: 0;
 
-    border:
-      0;
+    box-shadow: none;
 
-    border-radius:
-      0;
-
-    box-shadow:
-      none;
-
-    zoom:
-      1;
+    zoom: 1;
   }
 
   .phone::before {
-    display:
-      none;
+    display: none;
   }
 
   .screen {
-    border-radius:
-      0;
+    border-radius: 0;
   }
 
   .statusbar {
@@ -1490,11 +1198,10 @@ input:focus-visible {
 }
 
 /* =========================================================
-   ACCESIBILIDAD — REDUCIR MOVIMIENTO
+   REDUCIR MOVIMIENTO
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
