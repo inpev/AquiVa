@@ -4,6 +4,8 @@ AquiVa es un simulador web de una aplicación móvil de pedidos, desarrollado co
 
 El proyecto tiene un propósito educativo: permitir que los estudiantes analicen una aplicación funcional, identifiquen oportunidades de mejora y propongan nuevas funcionalidades aplicando principios de desarrollo web, experiencia de usuario, diseño de producto y control de versiones con Git y GitHub.
 
+La aplicación está diseñada para parecer una app móvil real, pero mantiene deliberadamente determinadas funcionalidades incompletas para que puedan ser analizadas, diseñadas e implementadas durante las clases.
+
 ---
 
 ## Objetivo educativo
@@ -12,18 +14,20 @@ AquiVa ha sido diseñado como una aplicación funcional pero deliberadamente inc
 
 El objetivo es que los estudiantes puedan:
 
-- Analizar la interfaz y experiencia de usuario.
+- Analizar la interfaz y la experiencia de usuario.
 - Identificar funcionalidades faltantes.
 - Detectar procesos que pueden simplificarse.
 - Proponer mejoras que aporten valor al usuario.
 - Implementar nuevas funciones.
 - Practicar HTML, CSS y JavaScript.
+- Aplicar diseño responsive y accesibilidad.
 - Utilizar Git como sistema de control de versiones.
 - Trabajar colaborativamente mediante GitHub.
 - Aprender a utilizar ramas, commits y Pull Requests.
 - Comprender un flujo básico de desarrollo utilizado en proyectos reales.
+- Practicar pensamiento de producto, UX/UI y resolución de problemas.
 
-La aplicación puede evolucionar progresivamente durante las clases.
+La aplicación puede evolucionar progresivamente durante las clases sin perder su propósito pedagógico.
 
 ---
 
@@ -33,12 +37,12 @@ El proyecto utiliza tecnologías web fundamentales:
 
 - HTML5
 - CSS3
-- JavaScript
+- JavaScript puro
 - Git
 - GitHub
-- Vercel para despliegue web
+- GitHub Pages para publicación web
 
-No requiere frameworks ni dependencias externas para ejecutarse.
+No requiere frameworks, gestores de paquetes ni dependencias externas para ejecutarse.
 
 ---
 
@@ -47,38 +51,53 @@ No requiere frameworks ni dependencias externas para ejecutarse.
 ```text
 AquiVa/
 │
+├── AGENTS.md
+├── README.md
 ├── index.html
 │
 ├── css/
 │   └── styles.css
 │
-├── js/
-│   └── app.js
-│
-├── README.md
-│
-└── vercel.json
+└── js/
+    └── app.js
 ```
 
 ### `index.html`
 
-Contiene la estructura principal de la aplicación.
+Contiene la estructura semántica principal de la aplicación, los componentes visibles y los elementos interactivos.
 
 ### `css/styles.css`
 
-Contiene los estilos visuales, diseño responsive y presentación de la interfaz.
+Contiene el sistema visual, design tokens, colores, tipografía, componentes, diseño responsive y adaptación del simulador entre escritorio y dispositivos móviles reales.
 
 ### `js/app.js`
 
-Contiene la lógica e interacciones de la aplicación.
+Contiene la lógica e interacciones de la aplicación, como búsqueda, categorías, favoritos temporales, navegación simulada y mensajes contextuales.
 
 ### `README.md`
 
-Contiene la documentación general del proyecto.
+Contiene la documentación pública del proyecto, instrucciones de instalación, colaboración, ejecución y publicación.
 
-### `vercel.json`
+### `AGENTS.md`
 
-Contiene la configuración utilizada para publicar la aplicación en Vercel.
+Contiene las instrucciones operativas para agentes de desarrollo como Codex, OpenCode y otros asistentes de programación.
+
+Define, entre otros aspectos:
+
+- Propósito del proyecto.
+- Arquitectura actual.
+- Responsabilidades de los archivos.
+- Sistema visual y semántica de colores.
+- Reglas UX/UI.
+- Responsive design.
+- Accesibilidad.
+- Convenciones de HTML, CSS y JavaScript.
+- Límites de alcance para modificaciones.
+- Funcionalidades que deben mantenerse deliberadamente pendientes.
+- Reglas de Git y commits.
+- Validaciones y criterios de cierre.
+
+Los agentes de desarrollo deben revisar `AGENTS.md` antes de realizar modificaciones relevantes.
 
 ---
 
@@ -86,7 +105,7 @@ Contiene la configuración utilizada para publicar la aplicación en Vercel.
 
 ## Opción 1 — Descargar el proyecto
 
-Desde GitHub puedes seleccionar:
+Desde GitHub selecciona:
 
 ```text
 Code → Download ZIP
@@ -96,19 +115,11 @@ Después:
 
 1. Descomprime el archivo.
 2. Ingresa a la carpeta del proyecto.
-3. Abre el archivo:
-
-```text
-index.html
-```
-
-en tu navegador.
+3. Abre `index.html` en el navegador.
 
 ---
 
 ## Opción 2 — Clonar el repositorio con Git
-
-Si tienes Git instalado:
 
 ```bash
 git clone https://github.com/inpev/AquiVa.git
@@ -120,21 +131,25 @@ Ingresa a la carpeta:
 cd AquiVa
 ```
 
-Luego abre el proyecto utilizando Visual Studio Code:
+Abre el proyecto en Visual Studio Code:
 
 ```bash
 code .
 ```
 
-Puedes ejecutar `index.html` directamente en el navegador.
-
-También puedes utilizar la extensión **Live Server** de Visual Studio Code.
+Puedes ejecutar `index.html` directamente en el navegador o utilizar la extensión **Live Server** de Visual Studio Code.
 
 ---
 
 # Trabajar en el proyecto
 
-Antes de comenzar a realizar cambios es recomendable actualizar el proyecto.
+Antes de comenzar una nueva modificación, comprueba el estado del repositorio:
+
+```bash
+git status
+```
+
+Después actualiza tu copia local cuando sea necesario:
 
 ```bash
 git pull origin main
@@ -142,105 +157,90 @@ git pull origin main
 
 La rama `main` representa la versión principal del proyecto.
 
-No es recomendable desarrollar nuevas funcionalidades directamente sobre `main`.
+Para nuevas funcionalidades o cambios importantes se recomienda trabajar mediante una rama independiente.
 
 ---
 
 # Crear una rama para trabajar
 
-Para cada funcionalidad o mejora crea una nueva rama.
-
 Ejemplo:
 
 ```bash
-git checkout -b feature/mejorar-carrito
+git checkout -b mejorar-carrito
 ```
 
 Otros ejemplos:
 
 ```bash
-git checkout -b feature/agregar-favoritos
+git checkout -b agregar-favoritos
 ```
 
 ```bash
-git checkout -b feature/historial-pedidos
+git checkout -b historial-pedidos
 ```
 
 ```bash
-git checkout -b fix/corregir-menu
+git checkout -b corregir-menu
 ```
 
-Esto permite desarrollar cambios sin afectar inmediatamente la versión principal.
+El nombre de la rama debe ser breve, descriptivo y relacionado con la tarea que se realizará.
 
 ---
 
 # Guardar los cambios con Git
 
-Después de modificar el proyecto puedes verificar los archivos cambiados:
+Verifica primero los archivos modificados:
 
 ```bash
 git status
 ```
 
-Agregar los cambios:
+Agrega los cambios:
 
 ```bash
 git add .
 ```
 
-Crear un commit:
+Crea un commit descriptivo:
 
 ```bash
-git commit -m "feat: agregar nueva funcionalidad"
-```
-
-Ejemplo:
-
-```bash
-git commit -m "feat: agregar productos favoritos"
+git commit -m "Agregar productos favoritos"
 ```
 
 ---
 
-# Convención recomendada para los commits
+# Convención de commits
 
-Puedes utilizar los siguientes prefijos:
+Los mensajes de commit del proyecto deben redactarse por defecto:
 
-```text
-feat: nueva funcionalidad
+- En español.
+- De forma clara y directa.
+- Indicando qué cambió.
+- Sin prefijos como `feat:`, `fix:`, `style:` o similares, salvo que se solicite expresamente.
 
-fix: corrección de un error
-
-style: cambios visuales o CSS
-
-refactor: reorganización del código sin modificar su comportamiento
-
-docs: cambios en documentación
-
-test: implementación o modificación de pruebas
-
-chore: mantenimiento o configuración
-```
-
-Ejemplos:
+Ejemplos recomendados:
 
 ```bash
-git commit -m "feat: agregar historial de pedidos"
+git commit -m "Agregar historial de pedidos"
 ```
 
 ```bash
-git commit -m "fix: corregir navegación móvil"
+git commit -m "Corregir navegación móvil"
 ```
 
 ```bash
-git commit -m "style: mejorar diseño del menú inferior"
+git commit -m "Mejorar diseño del menú inferior"
+```
+
+```bash
+git commit -m "Actualizar documentación para agentes de desarrollo"
 ```
 
 ---
 
 # Subir una rama a GitHub
 
-Después de realizar el commit:
+Después del commit:
 
 ```bash
 git push -u origin nombre-de-la-rama
@@ -249,53 +249,43 @@ git push -u origin nombre-de-la-rama
 Ejemplo:
 
 ```bash
-git push -u origin feature/agregar-favoritos
+git push -u origin agregar-favoritos
 ```
 
-La rama aparecerá en GitHub.
+La rama aparecerá en GitHub y podrá utilizarse para crear un Pull Request.
 
 ---
 
 # Colaboradores con acceso al repositorio
 
-Si tienes autorización para modificar directamente el repositorio, puedes:
+Si tienes autorización para modificar el repositorio:
 
-1. Clonar el proyecto.
-2. Crear una rama.
-3. Realizar tus modificaciones.
-4. Crear uno o varios commits.
-5. Subir la rama.
-6. Crear un Pull Request.
+1. Clona el proyecto.
+2. Actualiza `main`.
+3. Crea una rama para la tarea.
+4. Realiza las modificaciones.
+5. Prueba los cambios.
+6. Crea uno o varios commits claros.
+7. Sube la rama.
+8. Crea un Pull Request hacia `main`.
 
 Ejemplo:
 
 ```bash
 git clone https://github.com/inpev/AquiVa.git
-```
-
-```bash
 cd AquiVa
-```
-
-```bash
-git checkout -b feature/nueva-funcion
+git checkout -b nueva-funcion
 ```
 
 Después de desarrollar:
 
 ```bash
 git add .
+git commit -m "Implementar nueva función"
+git push -u origin nueva-funcion
 ```
 
-```bash
-git commit -m "feat: implementar nueva funcion"
-```
-
-```bash
-git push -u origin feature/nueva-funcion
-```
-
-Después debes ingresar a GitHub y crear un **Pull Request** hacia la rama:
+Después crea un **Pull Request** hacia:
 
 ```text
 main
@@ -303,13 +293,13 @@ main
 
 ---
 
-# Colaborar sin tener acceso al repositorio
+# Colaborar sin acceso directo al repositorio
 
-Si no tienes permisos directos sobre el repositorio puedes utilizar un **Fork**.
+Si no tienes permisos directos puedes utilizar un **Fork**.
 
 ## Paso 1 — Crear el Fork
 
-Ingresa al repositorio:
+Ingresa a:
 
 ```text
 https://github.com/inpev/AquiVa
@@ -321,13 +311,7 @@ Selecciona:
 Fork
 ```
 
-GitHub creará una copia del proyecto en tu cuenta.
-
----
-
 ## Paso 2 — Clonar tu Fork
-
-Ejemplo:
 
 ```bash
 git clone https://github.com/TU-USUARIO/AquiVa.git
@@ -339,51 +323,32 @@ Después:
 cd AquiVa
 ```
 
----
-
 ## Paso 3 — Crear una rama
 
 ```bash
-git checkout -b feature/mi-propuesta
+git checkout -b mi-propuesta
 ```
 
----
+## Paso 4 — Realizar y probar las modificaciones
 
-## Paso 4 — Realizar las modificaciones
-
-Modifica los archivos necesarios utilizando tu editor de código.
-
----
+Modifica únicamente los archivos necesarios y verifica que la aplicación continúe funcionando correctamente.
 
 ## Paso 5 — Guardar los cambios
 
 ```bash
 git add .
+git commit -m "Implementar propuesta de mejora"
 ```
+
+## Paso 6 — Subir la rama
 
 ```bash
-git commit -m "feat: implementar propuesta de mejora"
+git push -u origin mi-propuesta
 ```
-
----
-
-## Paso 6 — Subir los cambios
-
-```bash
-git push -u origin feature/mi-propuesta
-```
-
----
 
 ## Paso 7 — Crear un Pull Request
 
-Desde GitHub podrás crear un:
-
-```text
-Pull Request
-```
-
-desde tu Fork hacia:
+Desde GitHub crea un Pull Request desde tu Fork hacia:
 
 ```text
 inpev/AquiVa
@@ -394,8 +359,6 @@ El cambio podrá ser revisado antes de integrarse al proyecto principal.
 ---
 
 # Flujo recomendado de colaboración
-
-El flujo recomendado es:
 
 ```text
 Repositorio AquiVa
@@ -410,6 +373,9 @@ Repositorio AquiVa
 Desarrollar funcionalidad
         │
         ▼
+      Probar
+        │
+        ▼
       Commit
         │
         ▼
@@ -422,114 +388,139 @@ Desarrollar funcionalidad
  Revisión del código
         │
         ▼
-     Merge
+      Merge
         │
         ▼
       main
 ```
 
-Esto evita modificar directamente la versión estable.
-
 ---
 
 # Antes de comenzar una nueva modificación
 
-Siempre actualiza primero tu repositorio local:
+Actualiza primero la rama principal:
 
 ```bash
 git checkout main
-```
-
-```bash
 git pull origin main
 ```
 
-Después crea la nueva rama:
+Después crea una nueva rama cuando corresponda:
 
 ```bash
-git checkout -b feature/nueva-funcionalidad
+git checkout -b nombre-de-la-tarea
+```
+
+Si vas a trabajar con un agente de desarrollo, revisa también:
+
+```text
+AGENTS.md
+```
+
+Ese archivo contiene las reglas técnicas y visuales que deben preservarse.
+
+---
+
+# Publicación web con GitHub Pages
+
+La publicación oficial del proyecto utiliza **GitHub Pages**.
+
+Configuración esperada:
+
+```text
+Branch: main
+Folder: /(root)
+```
+
+La aplicación publicada puede consultarse en:
+
+```text
+https://inpev.github.io/AquiVa/
+```
+
+El flujo de publicación es:
+
+```text
+Desarrollo local
+      │
+      ▼
+     Git
+      │
+      ▼
+    GitHub
+      │
+      ▼
+ GitHub Pages
+      │
+      ▼
+Aplicación publicada
+```
+
+Debido a que el proyecto se publica bajo `/AquiVa/`, los recursos deben utilizar rutas relativas, por ejemplo:
+
+```html
+./css/styles.css
+./js/app.js
+```
+
+Después de una actualización, si el navegador continúa mostrando una versión antigua del CSS o JavaScript, puedes realizar una recarga forzada con:
+
+```text
+Ctrl + F5
 ```
 
 ---
 
 # Compartir el proyecto
 
-El repositorio puede compartirse utilizando:
+Repositorio:
 
 ```text
 https://github.com/inpev/AquiVa
 ```
 
-Desde allí otras personas podrán:
+Aplicación publicada:
+
+```text
+https://inpev.github.io/AquiVa/
+```
+
+Desde el repositorio otras personas pueden:
 
 - Revisar el código.
 - Descargarlo.
 - Clonarlo.
 - Crear un Fork.
-- Crear nuevas funcionalidades.
-- Enviar propuestas mediante Pull Requests.
+- Crear ramas.
+- Proponer nuevas funcionalidades.
+- Enviar Pull Requests.
 
 ---
 
-# Publicación web
+# Ideas de funcionalidades que pueden desarrollarse
 
-AquiVa también puede publicarse en Internet utilizando **Vercel**.
+AquiVa está diseñado para evolucionar progresivamente.
 
-El proyecto ya contiene:
+Posibles ejercicios o mejoras futuras incluyen:
 
-```text
-vercel.json
-```
-
-por lo que puede desplegarse como un sitio web estático.
-
-El flujo puede quedar de la siguiente manera:
-
-```text
-Desarrollador
-     │
-     ▼
-   GitHub
-     │
-     ▼
-   Vercel
-     │
-     ▼
-Aplicación publicada
-```
-
-Cuando Vercel está conectado al repositorio, cada actualización aprobada en `main` puede generar automáticamente una nueva versión de la aplicación.
-
----
-
-# Ideas de funcionalidades que pueden implementarse
-
-El proyecto está diseñado para evolucionar.
-
-Algunas posibles mejoras son:
-
-- Persistencia utilizando `localStorage`.
-- Sistema de favoritos.
+- Persistencia mediante `localStorage`.
+- Favoritos persistentes.
+- Carrito de compras.
 - Historial de pedidos.
 - Seguimiento de pedidos.
 - Autenticación de usuarios.
 - Perfil de usuario.
-- Carrito persistente.
-- Sistema de búsqueda.
-- Filtros.
-- Categorías.
-- Notificaciones.
 - Direcciones favoritas.
 - Métodos de pago simulados.
+- Notificaciones.
+- Filtros avanzados.
 - Historial de actividad.
 - Mejoras de accesibilidad.
-- Mejoras de UX/UI.
 - Optimización responsive.
-- Nuevas funcionalidades propuestas por los estudiantes.
+- PWA.
+- Nuevas funciones propuestas por los estudiantes.
 
-Estas son únicamente posibilidades.
-
-El objetivo principal es analizar qué funcionalidad realmente genera valor antes de implementarla.
+Estas posibilidades no deben implementarse automáticamente. Parte del ejercicio consiste en analizar cuál aporta verdadero valor antes de desarrollarla.
 
 ---
 
@@ -537,15 +528,17 @@ El objetivo principal es analizar qué funcionalidad realmente genera valor ante
 
 Durante el desarrollo:
 
-- No trabajar directamente sobre `main`.
-- Crear una rama para cada cambio importante.
-- Utilizar nombres descriptivos para las ramas.
-- Crear commits pequeños y comprensibles.
-- Probar los cambios antes de subirlos.
-- Evitar modificar archivos que no sean necesarios.
-- Mantener el código organizado.
+- Revisar `AGENTS.md` antes de cambios relevantes realizados por agentes.
+- Inspeccionar el código actual antes de modificarlo.
+- Evitar cambios fuera del alcance de la tarea.
 - Mantener separación entre HTML, CSS y JavaScript.
-- Comentar únicamente las partes que requieran explicar intención o decisiones importantes.
+- Reutilizar los design tokens existentes.
+- Preservar la identidad visual de AquiVa.
+- Mantener un diseño mobile-first y responsive.
+- Probar los cambios antes de subirlos.
+- Mantener el código comprensible para estudiantes.
+- Evitar dependencias innecesarias.
+- Crear commits pequeños y claros.
 - Revisar el código antes de crear un Pull Request.
 
 ---
@@ -561,14 +554,14 @@ Tokens
 Claves privadas
 Credenciales de bases de datos
 Variables de entorno sensibles
-Información personal
+Información personal sensible
 ```
 
-Si en futuras versiones el proyecto utiliza credenciales, estas deberán manejarse mediante variables de entorno y mecanismos seguros.
+Si en futuras versiones el proyecto utiliza credenciales, deberán gestionarse mediante mecanismos seguros y nunca exponerse directamente en el frontend.
 
 ---
 
-# Propósito del proyecto
+# Propósito final del proyecto
 
 AquiVa no busca únicamente enseñar programación.
 
@@ -579,6 +572,8 @@ Busca desarrollar competencias relacionadas con:
 - Resolución de problemas.
 - Diseño UX/UI.
 - Desarrollo frontend.
+- Diseño responsive.
+- Accesibilidad.
 - Trabajo colaborativo.
 - Git y GitHub.
 - Evaluación de funcionalidades.
@@ -595,8 +590,14 @@ Cada estudiante puede analizar la aplicación, identificar una necesidad y desar
 https://github.com/inpev/AquiVa
 ```
 
+## Aplicación publicada
+
+```text
+https://inpev.github.io/AquiVa/
+```
+
 ## Proyecto
 
 **AquiVa**
 
-Aplicación educativa para practicar desarrollo web, UX/UI, pensamiento de producto y colaboración utilizando Git y GitHub.
+Aplicación educativa para practicar desarrollo web, UX/UI, pensamiento de producto, Git, GitHub y colaboración mediante un simulador realista de aplicación móvil.
