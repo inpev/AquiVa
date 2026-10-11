@@ -1,402 +1,1065 @@
 /*
-      AquiVa — prototipo interactivo de una app móvil de pedidos.
-      Archivo autocontenido: HTML + CSS + JavaScript en un solo documento.
-      Objetivo: ofrecer una previsualización fiel, limpia y manipulable.
-    */
+ * AquiVa — estilos principales del simulador móvil.
+ *
+ * Objetivos:
+ * - Mantener una representación consistente del smartphone.
+ * - Evitar diferencias de escala entre servidor local y GitHub Pages.
+ * - Conservar la experiencia mobile-first.
+ * - Mantener componentes claros, reutilizables y fáciles de estudiar.
+ */
 
-    :root{
-      --bg:#f4f6fb;
-      --surface:#ffffff;
-      --surface-soft:#f8f9fd;
-      --text:#101828;
-      --muted:#667085;
-      --border:#e7eaf0;
-      --purple:#6f24e8;
-      --purple-2:#8c46ff;
-      --purple-soft:#f1e8ff;
-      --orange:#ff8a00;
-      --green:#1da66a;
-      --shadow:0 24px 65px rgba(16,24,40,.18);
-      --phone-w:390px;
-      --phone-h:844px;
-      --radius:28px;
-    }
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --surface-soft: #f8f9fd;
+  --text: #101828;
+  --muted: #667085;
+  --border: #e7eaf0;
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 16% 18%, rgba(111,36,232,.10), transparent 26%),
-        radial-gradient(circle at 84% 80%, rgba(255,138,0,.08), transparent 25%),
-        var(--bg);
-      color:var(--text);
-      display:grid;
-      place-items:center;
-      overflow:auto;
-      padding:28px;
-    }
+  --purple: #6f24e8;
+  --purple-2: #8c46ff;
+  --purple-soft: #f1e8ff;
 
-    .phone{
-      width:min(var(--phone-w), 100%);
-      height:min(var(--phone-h), calc(100vh - 56px));
-      min-height:640px;
-      background:#0c1421;
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:48px;
-      padding:10px;
-      box-shadow:var(--shadow);
-      position:relative;
-    }
+  --orange: #ff8a00;
+  --green: #1da66a;
 
-    .phone::before{
-      content:"";
-      position:absolute;
-      top:17px;
-      left:50%;
-      transform:translateX(-50%);
-      width:112px;
-      height:28px;
-      border-radius:20px;
-      background:#0a0f18;
-      z-index:5;
-    }
+  --phone-width: 390px;
+  --phone-height: 844px;
+  --phone-radius: 48px;
+  --screen-radius: 40px;
 
-    .screen{
-      height:100%;
-      background:var(--surface);
-      border-radius:40px;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      position:relative;
-    }
+  --shadow: 0 24px 65px rgba(16, 24, 40, 0.18);
 
-    .statusbar{
-      height:46px;
-      padding:13px 20px 0;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      font-size:12px;
-      font-weight:700;
-      z-index:6;
-    }
+  /*
+   * Escala base para escritorio.
+   * El dispositivo completo mantiene sus proporciones.
+   */
+  --phone-zoom: 0.88;
+}
 
-    .status-icons{
-      display:flex;
-      gap:6px;
-      align-items:center;
-      font-size:11px;
-    }
+/* =========================================================
+   RESET GLOBAL
+   ========================================================= */
 
-    .appbar{
-      padding:6px 18px 12px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid #f0f2f6;
-      background:rgba(255,255,255,.94);
-      backdrop-filter:blur(10px);
-      position:relative;
-      z-index:4;
-    }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-    .brand{
-      font-size:30px;
-      line-height:1;
-      font-weight:900;
-      letter-spacing:-1.5px;
-      color:var(--purple);
-    }
+html {
+  min-height: 100%;
+}
 
-    .brand span{color:var(--orange)}
+body {
+  min-height: 100dvh;
 
-    .online{
-      display:flex;
-      align-items:center;
-      gap:7px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:#e8fbf1;
-      color:#107244;
-      font-weight:800;
-      font-size:12px;
-      border:1px solid #c9f0dc;
-    }
+  margin: 0;
+  padding: 24px;
 
-    .dot{
-      width:7px;height:7px;border-radius:50%;background:#17b26a;
-      box-shadow:0 0 0 3px rgba(23,178,106,.12);
-    }
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
-    .scroll{
-      flex:1;
-      overflow:auto;
-      overscroll-behavior:contain;
-      scrollbar-width:none;
-      padding:14px 16px 110px;
-    }
-    .scroll::-webkit-scrollbar{display:none}
+  color: var(--text);
 
-    .location{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:13px 14px;
-      border:1px solid var(--border);
-      border-radius:20px;
-      box-shadow:0 3px 12px rgba(16,24,40,.04);
-      margin-bottom:12px;
-    }
+  background:
+    radial-gradient(
+      circle at 16% 18%,
+      rgba(111, 36, 232, 0.1),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 84% 80%,
+      rgba(255, 138, 0, 0.08),
+      transparent 25%
+    ),
+    var(--bg);
 
-    .location-icon{
-      width:42px;height:42px;border-radius:15px;
-      display:grid;place-items:center;
-      background:#fff1df;font-size:20px;flex:0 0 auto;
-    }
+  display: grid;
+  place-items: center;
 
-    .location-copy{min-width:0;flex:1}
-    .label{font-size:11px;color:var(--muted);font-weight:700}
-    .address{
-      font-size:13px;
-      font-weight:800;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      margin-top:1px;
-    }
+  overflow: auto;
+}
 
-    .chev{color:var(--purple);font-size:20px;font-weight:800}
+/* =========================================================
+   DISPOSITIVO
+   ========================================================= */
 
-    .search{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      border:1px solid var(--border);
-      background:#fbfbfd;
-      border-radius:18px;
-      padding:12px 14px;
-      margin-bottom:18px;
-    }
-    .search svg{width:20px;height:20px;stroke:var(--purple);flex:0 0 auto}
-    .search input{
-      width:100%;
-      border:0;
-      outline:0;
-      background:transparent;
-      font-size:14px;
-      color:var(--text);
-    }
+.phone {
+  width: var(--phone-width);
+  height: var(--phone-height);
 
-    .section-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin:2px 0 10px;
-    }
-    .section-head h2{
-      margin:0;font-size:18px;letter-spacing:-.35px;
-    }
-    .section-link{
-      color:var(--purple);
-      font-size:13px;
-      font-weight:800;
-      cursor:pointer;
-      border:0;background:transparent;
-    }
+  position: relative;
 
-    .categories{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:9px;
-      margin-bottom:16px;
-    }
+  padding: 10px;
 
-    .category{
-      border:1px solid var(--border);
-      background:linear-gradient(180deg,#fff,#fafafd);
-      border-radius:18px;
-      padding:13px 6px 11px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      min-height:82px;
-      cursor:pointer;
-      transition:.2s ease;
-      font:inherit;
-    }
+  background: #0c1421;
 
-    .category:hover,.category.active{
-      transform:translateY(-2px);
-      border-color:#d9c5ff;
-      background:linear-gradient(180deg,#faf5ff,#f2eaff);
-      box-shadow:0 7px 18px rgba(111,36,232,.08);
-    }
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--phone-radius);
 
-    .emoji{font-size:26px;line-height:1;margin-bottom:7px}
-    .category span:last-child{font-size:11px;font-weight:800}
+  box-shadow: var(--shadow);
 
-    .promo{
-      position:relative;
-      overflow:hidden;
-      border-radius:22px;
-      padding:18px;
-      min-height:126px;
-      margin:5px 0 18px;
-      background:
-        radial-gradient(circle at 90% 20%, rgba(255,255,255,.18), transparent 28%),
-        linear-gradient(120deg,#5320bd 0%,#7c2ce0 52%,#b136d2 100%);
-      color:white;
-      box-shadow:0 14px 30px rgba(111,36,232,.17);
-    }
+  /*
+   * zoom escala el dispositivo completo y también modifica
+   * el espacio real que ocupa dentro del layout.
+   *
+   * Esto evita inconsistencias entre Live Server,
+   * GitHub Pages y navegadores con diferentes alturas.
+   */
+  zoom: var(--phone-zoom);
+}
 
-    .promo h3{font-size:24px;margin:0 0 3px;letter-spacing:-.6px}
-    .promo p{font-size:12px;margin:0;max-width:170px;opacity:.95;line-height:1.25}
-    .promo button{
-      margin-top:10px;
-      border:0;
-      background:white;
-      color:var(--purple);
-      padding:9px 14px;
-      border-radius:12px;
-      font-weight:900;
-      cursor:pointer;
-      box-shadow:0 5px 12px rgba(0,0,0,.08);
-    }
+.phone::before {
+  content: "";
 
-    .scooter{
-      position:absolute;
-      right:10px;
-      bottom:7px;
-      font-size:68px;
-      filter:drop-shadow(0 9px 9px rgba(0,0,0,.14));
-      transform:rotate(-2deg);
-    }
+  position: absolute;
 
-    .restaurant-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
+  top: 17px;
+  left: 50%;
 
-    .restaurant{
-      border:1px solid var(--border);
-      background:white;
-      border-radius:18px;
-      overflow:hidden;
-      cursor:pointer;
-      transition:.2s ease;
-      box-shadow:0 3px 10px rgba(16,24,40,.03);
-    }
-    .restaurant:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(16,24,40,.08)}
+  z-index: 5;
 
-    .food{
-      height:105px;
-      position:relative;
-      display:grid;
-      place-items:center;
-      font-size:64px;
-      background:linear-gradient(135deg,#fff2dc,#ffe7c4);
-    }
-    .restaurant:nth-child(2) .food{background:linear-gradient(135deg,#ffe8e8,#ffd7dd)}
+  width: 112px;
+  height: 28px;
 
-    .heart{
-      position:absolute;right:9px;top:9px;
-      width:30px;height:30px;border-radius:50%;
-      border:0;background:rgba(255,255,255,.94);
-      display:grid;place-items:center;cursor:pointer;font-size:16px;
-    }
-    .heart.liked{color:#e11d48}
+  transform: translateX(-50%);
 
-    .restaurant-copy{padding:10px}
-    .restaurant-title{font-weight:900;font-size:13px;margin-bottom:4px}
-    .restaurant-meta{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-size:10px;
-      color:var(--muted);
-      flex-wrap:wrap;
-    }
-    .rating{color:#a15d00;font-weight:800}
+  background: #0a0f18;
 
-    .bottom-nav{
-      position:absolute;
-      left:0;right:0;bottom:0;
-      height:84px;
-      background:rgba(255,255,255,.96);
-      backdrop-filter:blur(12px);
-      border-top:1px solid #eceef3;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      padding:7px 8px 13px;
-      z-index:10;
-    }
+  border-radius: 20px;
+}
 
-    .nav-btn{
-      border:0;
-      background:transparent;
-      border-radius:16px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:4px;
-      color:#667085;
-      font:inherit;
-      font-size:10px;
-      font-weight:800;
-      cursor:pointer;
-      transition:.2s ease;
-    }
-    .nav-btn svg{width:22px;height:22px;stroke:currentColor}
-    .nav-btn.active{
-      color:var(--purple);
-      background:linear-gradient(180deg,#f7f2ff,#efe7ff);
-    }
+.screen {
+  height: 100%;
 
-    .toast{
-      position:absolute;
-      left:50%;
-      bottom:96px;
-      transform:translate(-50%,20px);
-      opacity:0;
-      background:#111827;
-      color:white;
-      padding:11px 14px;
-      border-radius:12px;
-      font-size:12px;
-      font-weight:700;
-      pointer-events:none;
-      transition:.25s ease;
-      z-index:30;
-      width:max-content;
-      max-width:80%;
-      text-align:center;
-    }
-    .toast.show{opacity:1;transform:translate(-50%,0)}
+  position: relative;
 
-    @media (max-width:520px){
-      body{padding:0;background:#fff}
-      .phone{
-        width:100%;
-        height:100dvh;
-        min-height:100dvh;
-        border-radius:0;
-        padding:0;
-        box-shadow:none;
-        border:0;
-        background:#fff;
-      }
-      .phone::before{display:none}
-      .screen{border-radius:0}
-      .statusbar{padding-top:12px}
-    }
+  display: flex;
+  flex-direction: column;
 
-    @media (max-height:720px) and (min-width:521px){
-      .phone{transform:scale(.82)}
-    }
+  overflow: hidden;
+
+  background: var(--surface);
+
+  border-radius: var(--screen-radius);
+}
+
+/* =========================================================
+   BARRA DE ESTADO
+   ========================================================= */
+
+.statusbar {
+  height: 46px;
+
+  padding: 13px 20px 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  z-index: 6;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.appbar {
+  padding: 6px 18px 12px;
+
+  position: relative;
+
+  z-index: 4;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border-bottom: 1px solid #f0f2f6;
+
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  color: var(--purple);
+
+  font-size: 30px;
+  font-weight: 900;
+
+  line-height: 1;
+
+  letter-spacing: -1.5px;
+}
+
+.brand span {
+  color: var(--orange);
+}
+
+.online {
+  padding: 8px 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #107244;
+
+  background: #e8fbf1;
+
+  border: 1px solid #c9f0dc;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+
+  background: #17b26a;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 0 3px rgba(23, 178, 106, 0.12);
+}
+
+/* =========================================================
+   ÁREA SCROLLABLE
+   ========================================================= */
+
+.scroll {
+  flex: 1;
+
+  padding: 14px 16px 110px;
+
+  overflow: auto;
+
+  overscroll-behavior: contain;
+
+  scrollbar-width: none;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   UBICACIÓN
+   ========================================================= */
+
+.location {
+  width: 100%;
+
+  margin: 0 0 12px;
+
+  padding: 13px 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: inherit;
+
+  text-align: left;
+
+  background: #ffffff;
+
+  border: 1px solid var(--border);
+  border-radius: 20px;
+
+  box-shadow:
+    0 3px 12px rgba(16, 24, 40, 0.04);
+
+  cursor: pointer;
+
+  font: inherit;
+}
+
+.location-icon {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  background: #fff1df;
+
+  border-radius: 15px;
+
+  font-size: 20px;
+}
+
+.location-copy {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  color: var(--muted);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.address {
+  margin-top: 1px;
+
+  overflow: hidden;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+.chev {
+  color: var(--purple);
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   BÚSQUEDA
+   ========================================================= */
+
+.search {
+  margin-bottom: 18px;
+
+  padding: 12px 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #fbfbfd;
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.search:focus-within {
+  border-color: rgba(111, 36, 232, 0.45);
+
+  box-shadow:
+    0 0 0 3px rgba(111, 36, 232, 0.08);
+}
+
+.search svg {
+  width: 20px;
+  height: 20px;
+
+  flex: 0 0 auto;
+
+  stroke: var(--purple);
+}
+
+.search input {
+  width: 100%;
+
+  padding: 0;
+
+  color: var(--text);
+
+  background: transparent;
+
+  border: 0;
+
+  outline: 0;
+
+  font: inherit;
+
+  font-size: 14px;
+}
+
+.search input::placeholder {
+  color: #7a7f8c;
+}
+
+/* =========================================================
+   ENCABEZADOS DE SECCIÓN
+   ========================================================= */
+
+.section-head {
+  margin: 2px 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.section-head h2 {
+  margin: 0;
+
+  font-size: 18px;
+
+  letter-spacing: -0.35px;
+}
+
+.section-link {
+  padding: 4px;
+
+  color: var(--purple);
+
+  background: transparent;
+
+  border: 0;
+
+  font: inherit;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   CATEGORÍAS
+   ========================================================= */
+
+.categories {
+  margin-bottom: 16px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 9px;
+}
+
+.category {
+  min-height: 82px;
+
+  padding: 13px 6px 11px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  color: inherit;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff,
+      #fafafd
+    );
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.category:hover,
+.category.active {
+  transform: translateY(-2px);
+
+  background:
+    linear-gradient(
+      180deg,
+      #faf5ff,
+      #f2eaff
+    );
+
+  border-color: #d9c5ff;
+
+  box-shadow:
+    0 7px 18px rgba(111, 36, 232, 0.08);
+}
+
+.emoji {
+  margin-bottom: 7px;
+
+  font-size: 26px;
+
+  line-height: 1;
+}
+
+.category span:last-child {
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   PROMOCIÓN
+   ========================================================= */
+
+.promo {
+  min-height: 126px;
+
+  margin: 5px 0 18px;
+
+  padding: 18px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(255, 255, 255, 0.18),
+      transparent 28%
+    ),
+    linear-gradient(
+      120deg,
+      #5320bd 0%,
+      #7c2ce0 52%,
+      #b136d2 100%
+    );
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 14px 30px rgba(111, 36, 232, 0.17);
+}
+
+.promo h3 {
+  margin: 0 0 3px;
+
+  font-size: 24px;
+
+  letter-spacing: -0.6px;
+}
+
+.promo p {
+  max-width: 170px;
+
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.25;
+
+  opacity: 0.95;
+}
+
+.promo button {
+  margin-top: 10px;
+
+  padding: 9px 14px;
+
+  color: var(--purple);
+
+  background: #ffffff;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  font: inherit;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 12px rgba(0, 0, 0, 0.08);
+
+  cursor: pointer;
+}
+
+.scooter {
+  position: absolute;
+
+  right: 10px;
+  bottom: 7px;
+
+  font-size: 68px;
+
+  filter:
+    drop-shadow(
+      0 9px 9px rgba(0, 0, 0, 0.14)
+    );
+
+  transform: rotate(-2deg);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   COMERCIOS
+   ========================================================= */
+
+.restaurant-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.restaurant {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 3px 10px rgba(16, 24, 40, 0.03);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.restaurant:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 25px rgba(16, 24, 40, 0.08);
+}
+
+.restaurant:focus-visible {
+  outline:
+    3px solid rgba(111, 36, 232, 0.25);
+
+  outline-offset: 2px;
+}
+
+.food {
+  height: 105px;
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff2dc,
+      #ffe7c4
+    );
+
+  font-size: 64px;
+}
+
+.restaurant:nth-child(2) .food {
+  background:
+    linear-gradient(
+      135deg,
+      #ffe8e8,
+      #ffd7dd
+    );
+}
+
+.heart {
+  width: 30px;
+  height: 30px;
+
+  position: absolute;
+
+  top: 9px;
+  right: 9px;
+
+  display: grid;
+  place-items: center;
+
+  color: #475467;
+
+  background:
+    rgba(255, 255, 255, 0.94);
+
+  border: 0;
+
+  border-radius: 50%;
+
+  font: inherit;
+
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.heart.liked {
+  color: #e11d48;
+}
+
+.restaurant-copy {
+  padding: 10px;
+}
+
+.restaurant-title {
+  margin-bottom: 4px;
+
+  font-size: 13px;
+
+  font-weight: 900;
+}
+
+.restaurant-meta {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+.rating {
+  color: #a15d00;
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   SIN RESULTADOS
+   ========================================================= */
+
+.empty-results {
+  margin: 18px 0 0;
+
+  padding: 14px;
+
+  color: var(--muted);
+
+  background: var(--surface-soft);
+
+  border: 1px dashed var(--border);
+
+  border-radius: 14px;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   NAVEGACIÓN INFERIOR
+   ========================================================= */
+
+.bottom-nav {
+  height: 84px;
+
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  z-index: 10;
+
+  padding: 7px 8px 13px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  border-top: 1px solid #eceef3;
+
+  backdrop-filter: blur(12px);
+}
+
+.nav-btn {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  color: #667085;
+
+  background: transparent;
+
+  border: 0;
+
+  border-radius: 16px;
+
+  font: inherit;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.nav-btn svg {
+  width: 22px;
+  height: 22px;
+
+  stroke: currentColor;
+}
+
+.nav-btn.active {
+  color: var(--purple);
+
+  background:
+    linear-gradient(
+      180deg,
+      #f7f2ff,
+      #efe7ff
+    );
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+  width: max-content;
+
+  max-width: 80%;
+
+  position: absolute;
+
+  left: 50%;
+  bottom: 96px;
+
+  z-index: 30;
+
+  padding: 11px 14px;
+
+  color: #ffffff;
+
+  background: #111827;
+
+  border-radius: 12px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-align: center;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transform:
+    translate(-50%, 20px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.toast.show {
+  opacity: 1;
+
+  transform:
+    translate(-50%, 0);
+}
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+button:focus-visible,
+input:focus-visible {
+  outline:
+    3px solid rgba(111, 36, 232, 0.22);
+
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVE — ESCRITORIO
+   ========================================================= */
+
+/*
+ * Cada breakpoint solamente modifica la escala general
+ * del dispositivo.
+ *
+ * No se duplican reglas del componente .phone.
+ */
+
+@media (min-width: 521px) and (min-height: 960px) {
+  :root {
+    --phone-zoom: 1;
+  }
+}
+
+@media (min-width: 521px) and (max-height: 900px) {
+  :root {
+    --phone-zoom: 0.9;
+  }
+}
+
+@media (min-width: 521px) and (max-height: 820px) {
+  :root {
+    --phone-zoom: 0.82;
+  }
+}
+
+@media (min-width: 521px) and (max-height: 740px) {
+  :root {
+    --phone-zoom: 0.74;
+  }
+}
+
+@media (min-width: 521px) and (max-height: 660px) {
+  :root {
+    --phone-zoom: 0.66;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MÓVIL REAL
+   ========================================================= */
+
+/*
+ * En móviles reales no se dibuja un teléfono
+ * dentro del teléfono.
+ *
+ * AquiVa ocupa completamente el viewport.
+ */
+
+@media (max-width: 520px) {
+  :root {
+    --phone-zoom: 1;
+  }
+
+  body {
+    min-height: 100dvh;
+
+    padding: 0;
+
+    display: block;
+
+    background: #ffffff;
+
+    overflow: hidden;
+  }
+
+  .phone {
+    width: 100%;
+
+    height: 100dvh;
+
+    padding: 0;
+
+    background: #ffffff;
+
+    border: 0;
+
+    border-radius: 0;
+
+    box-shadow: none;
+
+    zoom: 1;
+  }
+
+  .phone::before {
+    display: none;
+  }
+
+  .screen {
+    border-radius: 0;
+  }
+
+  .statusbar {
+    padding-top:
+      max(
+        12px,
+        env(safe-area-inset-top)
+      );
+  }
+
+  .bottom-nav {
+    height:
+      calc(
+        84px + env(safe-area-inset-bottom)
+      );
+
+    padding-bottom:
+      calc(
+        13px + env(safe-area-inset-bottom)
+      );
+  }
+}
+
+/* =========================================================
+   MOVIMIENTO REDUCIDO
+   ========================================================= */
+
+/*
+ * Respeta la configuración de accesibilidad del sistema
+ * operativo para personas sensibles a las animaciones.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+  }
+}
