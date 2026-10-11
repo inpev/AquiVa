@@ -535,7 +535,8 @@ body {
 
   margin: 5px 0 18px;
 
-  padding: 18px;
+  /* Reservamos espacio a la derecha para la moto */
+  padding: 18px 120px 18px 18px;
 
   position: relative;
 
@@ -564,6 +565,15 @@ body {
   box-shadow:
     0 14px 30px rgba(111, 36, 232, 0.17);
 }
+
+.promo > div:first-child {
+  position: relative;
+  z-index: 2;
+  max-width: 170px;
+}
+
+
+
 
 .promo h3 {
   margin: 0 0 3px;
@@ -611,10 +621,12 @@ body {
 .scooter {
   position: absolute;
 
-  right: 10px;
-  bottom: 7px;
+  right: 12px;
+  bottom: 10px;
 
-  font-size: 68px;
+  z-index: 1;
+
+  font-size: 58px;
 
   filter:
     drop-shadow(
